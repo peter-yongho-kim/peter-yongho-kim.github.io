@@ -57,6 +57,12 @@
       {% if site.max_author_limit and author_array_size > site.max_author_limit %}
         {% assign author_array_limit = site.max_author_limit %}
       {% endif %}
+      {% assign cofirst_specified = false %}
+      {% assign cofirst_indices = '' | split: ',' %}
+      {% if entry.cofirst %}
+        {% assign cofirst_specified = true %}
+        {% assign cofirst_indices = entry.cofirst | remove: ' ' | split: ',' %}
+      {% endif %}
 
       {%- for author in entry.author_array limit: author_array_limit -%}
         {% assign author_is_self = false %}
@@ -84,13 +90,13 @@
           {%- endif %}
           {%- if forloop.last and author_array_limit == author_array_size %}and {% endif -%}
         {% endif %}
-        {%- if author_is_self -%}
-          <em>
-            {{- author.first }}
-            {{ author_last_html -}}
-          </em>
-        {%- else -%}
-          {%- if coauthor_url -%}
+        {%- capture rendered_author -%}
+          {%- if author_is_self -%}
+            <em>
+              {{- author.first }}
+              {{ author_last_html -}}
+            </em>
+          {%- elsif coauthor_url -%}
             <a href="{{ coauthor_url }}">
               {{- author.first }}
               {{ author_last_html -}}
@@ -98,7 +104,21 @@
           {%- else -%}
             {{- author.first }}
             {{ author_last_html -}}
+          {%- endif -%}
+        {%- endcapture -%}
+        {% assign author_index_str = forloop.index | append: '' %}
+        {% assign should_bold_author = false %}
+        {% if cofirst_specified %}
+          {% if cofirst_indices contains author_index_str %}
+            {% assign should_bold_author = true %}
           {% endif %}
+        {% elsif forloop.first %}
+          {% assign should_bold_author = true %}
+        {% endif %}
+        {%- if should_bold_author -%}
+          <strong>{{ rendered_author | strip }}</strong>
+        {%- else -%}
+          {{ rendered_author | strip }}
         {%- endif -%}
       {% endfor %}
       {%- assign more_authors = author_array_size | minus: author_array_limit -%}
