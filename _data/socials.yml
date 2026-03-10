@@ -4,7 +4,10 @@
 email: peterkim98@snu.ac.kr # your email address
 github_username: concarne2
 linkedin_username: peter-yongho-kim-3b14b3a7 # e.g., john-doe
-x_username: peter_yonghokim # without @
+x_profile:
+  logo: https://cdn.simpleicons.org/x/000000
+  title: X
+  url: https://x.com/peter_yonghokim
 lab_website:
   logo: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/flask.svg
   title: M.IN.D Lab
