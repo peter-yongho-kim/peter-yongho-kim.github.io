@@ -464,11 +464,11 @@ ninja.data = [{
           window.open("https://www.linkedin.com/in/peter-yongho-kim-3b14b3a7", "_blank");
         },
       },{
-        id: 'social-x',
-        title: 'X',
+        id: 'social-x_profile',
+        title: 'X_profile',
         section: 'Socials',
         handler: () => {
-          window.open("https://twitter.com/peter_yonghokim", "_blank");
+          window.open("https://x.com/peter_yonghokim", "_blank");
         },
       },{
         id: 'social-lab_website',
